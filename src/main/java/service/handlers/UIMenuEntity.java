@@ -1,6 +1,6 @@
 package service.handlers;
 
-public interface MenuEntity {
+public interface UIMenuEntity {
     public void run();
     public void displayMenu();
     public void handleMenuInput();

@@ -1,12 +1,11 @@
 package auth;
 
-import auth.UserFileHandler;
 import auth.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManager{
+public class UserDatabase {
     private static List<User> users;
 
     public static List<User> getAll() {
