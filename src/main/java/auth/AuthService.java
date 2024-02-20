@@ -80,7 +80,8 @@ public class AuthService {
         String hashedPassword = Util.sha256(password);
 
         if (user != null && user.getPassword().equals(hashedPassword)) {
-            System.out.println("Авторизация произошла успешно. Добро пожаловать, " + user.getUserName() + "!");
+            String userType = user.getUserTypeValue();
+            System.out.println("Авторизация произошла успешно. Добро пожаловать, " + userType + " " + user.getUserName() + "!");
             return true;
         } else {
             System.out.println("Неправильно введено имя пользователя или пароль. Попробуйте ещё раз.");
