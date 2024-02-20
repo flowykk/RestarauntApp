@@ -5,10 +5,10 @@ import auth.factory.UserFactory;
 import auth.factory.VisitorFactory;
 import auth.user.User;
 //import auth.user.UserType;
-import service.handlers.AdminMenu;
-import service.handlers.MenuEntity;
-import service.handlers.VisitorMenu;
-import service.util.Util;
+import service.handlers.AdminUIMenu;
+import service.handlers.UIMenuEntity;
+import service.handlers.VisitorUIMenu;
+import service.util.UserUtil;
 import service.modes.InfoModes;
 import service.modes.UserModes;
 
@@ -19,7 +19,7 @@ public class AuthService {
 
     public boolean registerUser(UserModes mode) {
         System.out.println("Введите данные для регистрации.");
-        String username = Util.handleInfoInput(
+        String username = UserUtil.handleInfoInput(
                 "Введите имя пользователя: ",
                 "Имя пользователя введено некорректно!\n" +
                         "Имя пользователя должно состоять из не менее чем 6-ти латинских букв или цифр!",
@@ -30,18 +30,18 @@ public class AuthService {
             return false;
         }
 
-        if (UserManager.getAll().stream().anyMatch(user -> user.getUserName().equals(username))) {
+        if (UserDatabase.getAll().stream().anyMatch(user -> user.getUserName().equals(username))) {
             System.out.println("Пользователь с именем \"" + username + "\" уже существует.");
             return false;
         }
 
-        String password = Util.handleInfoInput(
+        String password = UserUtil.handleInfoInput(
                 "Придумайте свой пароль: ",
                 "Пароль введён некорректно!\n" +
                         "Пароль должен состоять из не менее чем 4-ёх латинских букв или цифр!",
                 InfoModes.PASSWORD
         );
-        String hashedPassword = Util.sha256(password);
+        String hashedPassword = UserUtil.sha256(password);
 
         User newUser;
         if (mode == UserModes.VISITOR) {
@@ -51,15 +51,15 @@ public class AuthService {
         }
 
         newUser = userFactory.createUser(username, hashedPassword);
-        UserManager.addUser(newUser);
-        System.out.println("Пользователь \"" + username + "\" успешно зарегистрирован.");
+        UserDatabase.addUser(newUser);
+        System.out.println("✅ Пользователь \"" + username + "\" успешно зарегистрирован.");
 
         return true;
     }
 
-    public MenuEntity authenticateUser() {
+    public UIMenuEntity authenticateUser() {
         System.out.println("Введите данные для авторизации.");
-        String username = Util.handleInfoInput(
+        String username = UserUtil.handleInfoInput(
                 "Введите имя пользователя: ",
                 "Имя пользователя введено некорректно!\n" +
                         "Имя пользователя должно состоять из не менее чем 6-ти латинских букв или цифр!",
@@ -70,27 +70,27 @@ public class AuthService {
             return null;
         }
 
-        User user = UserManager.getAll().stream()
+        User user = UserDatabase.getAll().stream()
                 .filter(u -> u.getUserName().equals(username))
                 .findFirst()
                 .orElse(null);
 
-        String password = Util.handleInfoInput(
+        String password = UserUtil.handleInfoInput(
                 "Введите пароль: ",
                 "Пароль введён некорректно!\n" +
                         "Пароль должен состоять из не менее чем 4-ёх латинских букв или цифр!",
                 InfoModes.PASSWORD
         );
-        String hashedPassword = Util.sha256(password);
+        String hashedPassword = UserUtil.sha256(password);
 
         if (user != null && user.getPassword().equals(hashedPassword)) {
             String userType = user.getUserTypeValue();
-            System.out.println("Авторизация произошла успешно. Добро пожаловать, " + userType + " " + user.getUserName() + "!");
+            System.out.println("✅ Авторизация произошла успешно. Добро пожаловать, " + userType + " " + user.getUserName() + "!");
 
             if (Objects.equals(userType, "VISITOR")) {
-                return new VisitorMenu();
+                return new VisitorUIMenu();
             } else {
-                return new AdminMenu();
+                return new AdminUIMenu();
             }
         } else {
             System.out.println("Неправильно введено имя пользователя или пароль. Попробуйте ещё раз.");

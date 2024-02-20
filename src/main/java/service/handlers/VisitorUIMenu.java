@@ -2,7 +2,7 @@ package service.handlers;
 
 import java.util.Scanner;
 
-public class AdminMenu implements MenuEntity {
+public class VisitorUIMenu implements UIMenuEntity {
     private final Scanner scanner = new Scanner(System.in);
 
     @Override
@@ -13,7 +13,7 @@ public class AdminMenu implements MenuEntity {
 
     @Override
     public void displayMenu() {
-        System.out.println("Добро пожаловать в главное меню ADMIN!");
+        System.out.println("Добро пожаловать в главное меню VISITOR!");
         System.out.println("0. Выход");
     }
 

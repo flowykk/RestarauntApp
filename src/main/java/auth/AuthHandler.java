@@ -1,15 +1,13 @@
 package auth;
 
 
-import service.ConsoleUI;
-import service.handlers.MenuEntity;
+import service.handlers.UIMenuEntity;
 import service.modes.UserModes;
 
 import java.util.Scanner;
 
-public class AuthHandler implements MenuEntity {
+public class AuthHandler implements UIMenuEntity {
     private AuthService authService;
-    private ConsoleUI consoleUI;
     private Scanner scanner;
 
     public AuthHandler(AuthService authService) {
@@ -37,7 +35,7 @@ public class AuthHandler implements MenuEntity {
 
             switch (userInput) {
                 case "1":
-                    MenuEntity menu = authService.authenticateUser();
+                    UIMenuEntity menu = authService.authenticateUser();
                     if (menu != null) {
                         menu.run();
                     } else {

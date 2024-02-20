@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 
-public class Util {
+public class UserUtil {
     public static String handleInfoInput(String message, String errorMessage, InfoModes mode) {
         Scanner scanner = new Scanner(System.in);
         String data;
