@@ -1,12 +1,15 @@
 package auth;
 
 
-import service.util.modes.UserModes;
+import service.ConsoleUI;
+import service.handlers.MenuEntity;
+import service.modes.UserModes;
 
 import java.util.Scanner;
 
-public class AuthHandler {
+public class AuthHandler implements MenuEntity {
     private AuthService authService;
+    private ConsoleUI consoleUI;
     private Scanner scanner;
 
     public AuthHandler(AuthService authService) {
@@ -34,9 +37,9 @@ public class AuthHandler {
 
             switch (userInput) {
                 case "1":
-                    if (authService.authenticateUser()) {
-                        System.out.println("success");
-                        //consoleUI.getMainMenuHandler().run();
+                    MenuEntity menu = authService.authenticateUser();
+                    if (menu != null) {
+                        menu.run();
                     } else {
                         System.out.println("Авторизация не удалась!");
                     }
@@ -58,7 +61,6 @@ public class AuthHandler {
                 case "0":
                     System.exit(0);
                     return;
-
                 default:
                     System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 2.");
             }

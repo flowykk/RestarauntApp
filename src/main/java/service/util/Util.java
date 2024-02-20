@@ -1,6 +1,6 @@
 package service.util;
 
-import service.util.modes.InfoModes;
+import service.modes.InfoModes;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
