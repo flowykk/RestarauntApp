@@ -19,9 +19,9 @@ public class Main {
         UserDatabase.addUser(admin);
         UserDatabase.addUser(visitor);
 
-        Dish borsh = new Dish("a", 100);
-        Dish pizza = new Dish("b", 150);
-        Dish filet_mignon = new Dish("c", 300);
+        Dish borsh = new Dish("a", 100, 10);
+        Dish pizza = new Dish("b", 150, 10);
+        Dish filet_mignon = new Dish("c", 300, 10);
 
         FoodMenu.add(borsh);
         FoodMenu.add(pizza);

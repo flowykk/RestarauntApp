@@ -1,8 +1,9 @@
 package service.util;
 
-import java.util.Scanner;
+import service.dish.FoodMenu;
 
-import static service.dish.FoodMenu.*;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class DishUtil {
     public static String inputName() {
@@ -52,19 +53,19 @@ public class DishUtil {
         return price;
     }
 
-    public static int inputCount() {
+    public static int inputInteger(String message) {
         Scanner scanner = new Scanner(System.in);
-        int count;
+        int data;
 
         while (true) {
             try {
-                System.out.print("Введите текущее количество блюда в наличии: ");
-                count = scanner.nextInt();
+                System.out.print(message);
+                data = scanner.nextInt();
 
-                if (count == -1) {
+                if (data == -1) {
                     return 0;
-                } else if (count < 0) {
-                    System.out.println("количество должно быть больше или равно нуля.");
+                } else if (data < 0) {
+                    System.out.println("Вводимое число должно быть больше или равно нуля.");
                 } else {
                     break;
                 }
@@ -74,7 +75,19 @@ public class DishUtil {
             }
         }
 
-        return count;
+        return data;
+    }
+
+    public static String InputNameForUpdating() {
+        String name = DishUtil.inputName();
+        if (Objects.equals(name, "")) {
+            return null;
+        } else if (FoodMenu.getDishByName(name) == null) {
+            System.out.println("❌ Блюда с таким названием не существует!");
+            return null;
+        }
+
+        return name;
     }
 
     private static boolean isValidDishName(String name) { return name.matches("^[a-zA-Z0-9\\\\s]+$"); }

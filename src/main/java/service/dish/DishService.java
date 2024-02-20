@@ -1,5 +1,6 @@
 package service.dish;
 
+import service.modes.UpdateModes;
 import service.util.DishUtil;
 
 import java.util.Objects;
@@ -16,11 +17,16 @@ public class DishService {
         }
 
         double price = DishUtil.inputPrice();
-        if (price == 0.0) {
+        if (price == -1) {
             return;
         }
 
-        Dish dish = new Dish(name, price);
+        int prepareTime = DishUtil.inputInteger("Введите время приготовления блюда: ");
+        if (prepareTime == -1) {
+            return;
+        }
+
+        Dish dish = new Dish(name, price, prepareTime);
         FoodMenu.add(dish);
 
         System.out.println("✅ Блюдо успешно добавлено в меню!");
@@ -33,16 +39,12 @@ public class DishService {
         }
 
         System.out.println("Введите информацию о блюде для удаления:");
-        String name = DishUtil.inputName();
-        if (Objects.equals(name, "")) {
-            return;
-        } else if (FoodMenu.getDishByName(name) == null) {
-            System.out.println("❌ Блюда с таким названием не существует!");
+        String name = DishUtil.InputNameForUpdating();
+        if (name == null) {
             return;
         }
 
-        Dish dish = new Dish(name, FoodMenu.getPriceByName(name));
-        FoodMenu.delete(dish);
+        FoodMenu.delete(name);
 
         System.out.println("✅ Блюдо успешно удалено из меню!");
         System.out.println();
@@ -50,11 +52,8 @@ public class DishService {
 
     public void updatePrice() {
         System.out.println("Введите информацию о блюде для изменения:");
-        String name = DishUtil.inputName();
-        if (Objects.equals(name, "")) {
-            return;
-        } else if (FoodMenu.getDishByName(name) == null) {
-            System.out.println("❌ Блюда с таким названием не существует!");
+        String name = DishUtil.InputNameForUpdating();
+        if (name == null) {
             return;
         }
 
@@ -63,32 +62,32 @@ public class DishService {
             return;
         }
 
-        Dish dish = new Dish(name, FoodMenu.getPriceByName(name));
-        FoodMenu.update(dish, price);
+        FoodMenu.update(name, price);
 
         System.out.println("✅ Информация о блюде успешно обновлена!");
         System.out.println();
     }
 
-    public void updateCount() {
+    public void update(UpdateModes mode) {
         System.out.println("Введите информацию о блюде для изменения:");
-        String name = DishUtil.inputName();
-        if (Objects.equals(name, "")) {
-            return;
-        } else if (FoodMenu.getDishByName(name) == null) {
-            System.out.println("❌ Блюда с таким названием не существует!");
+        String name = DishUtil.InputNameForUpdating();
+        if (name == null) {
             return;
         }
 
-        int count = DishUtil.inputCount();
-        if (count == -1) {
+        int data = DishUtil.inputInteger((mode == UpdateModes.COUNT) ? "Введите количество блюда в наличии: " : "Введите время приготовления блюда: ");
+        if (data == -1) {
             return;
         }
 
-        Dish dish = new Dish(name, FoodMenu.getPriceByName(name));
-        FoodMenu.update(dish, count);
+        if (mode == UpdateModes.COUNT) {
+            FoodMenu.update(name, data, UpdateModes.COUNT);
+        } else {
+            FoodMenu.update(name, data, UpdateModes.TIME);
+        }
 
         System.out.println("✅ Информация о блюде успешно обновлена!");
         System.out.println();
     }
+
 }

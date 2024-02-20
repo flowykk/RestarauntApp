@@ -1,1 +1,1 @@
-[{"name":"a","price":100.0,"count":0,"availability":false},{"name":"b","price":150.0,"count":1,"availability":true},{"name":"c","price":300.0,"count":1,"availability":true}]
+[{"name":"a","price":1000.0,"count":2,"prepareTime":20,"availability":true},{"name":"b","price":150.0,"count":1,"prepareTime":10,"availability":true},{"name":"c","price":300.0,"count":1,"prepareTime":10,"availability":true}]

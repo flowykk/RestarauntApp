@@ -2,6 +2,7 @@ package service.dish;
 
 import auth.UserFileHandler;
 import auth.user.User;
+import service.modes.UpdateModes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class FoodMenu {
         for (Dish dish : getAll()) {
             System.out.println("Название: " + dish.getName());
             System.out.println("Цена: " + dish.getPrice() + " $");
+            System.out.println("Время приготовления: " + dish.getPrepareTime() + " мин.");
             System.out.println("Количество: " + dish.getCount());
             System.out.println("Доступность: " + (dish.getAvailability() ? "\uD83D\uDFE2" : "\uD83D\uDD34"));
             System.out.println();
@@ -59,9 +61,9 @@ public class FoodMenu {
         FoodMenuFileHandler.saveDishes(dishes);
     }
 
-    public static void delete(Dish dish) {
+    public static void delete(String name) {
         for (int i = 0; i <= getAll().size(); i++) {
-            if (dish.getName().equals(dishes.get(i).getName())) {
+            if (name.equals(dishes.get(i).getName())) {
                 dishes.remove(i);
                 break;
             }
@@ -70,9 +72,9 @@ public class FoodMenu {
         FoodMenuFileHandler.saveDishes(dishes);
     }
 
-    public static void update(Dish dish, double price) {
+    public static void update(String name, double price) {
         for (int i = 0; i <= getAll().size(); i++) {
-            if (dish.getName().equals(dishes.get(i).getName())) {
+            if (name.equals(dishes.get(i).getName())) {
                 dishes.get(i).setPrice(price);
                 break;
             }
@@ -81,10 +83,14 @@ public class FoodMenu {
         FoodMenuFileHandler.saveDishes(dishes);
     }
 
-    public static void update(Dish dish, int count) {
+    public static void update(String name, int data, UpdateModes mode) {
         for (int i = 0; i <= getAll().size(); i++) {
-            if (dish.getName().equals(dishes.get(i).getName())) {
-                dishes.get(i).setCount(count);
+            if (name.equals(dishes.get(i).getName())) {
+                if (mode == UpdateModes.COUNT) {
+                    dishes.get(i).setCount(data);
+                } else {
+                    dishes.get(i).setPrepareTime(data);
+                }
                 break;
             }
         }

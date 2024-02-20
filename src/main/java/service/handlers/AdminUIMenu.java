@@ -1,8 +1,8 @@
 package service.handlers;
 
-import service.dish.Dish;
 import service.dish.DishService;
 import service.dish.FoodMenu;
+import service.modes.UpdateModes;
 
 import java.util.Scanner;
 
@@ -50,7 +50,7 @@ public class AdminUIMenu implements UIMenuEntity {
                     break;
                 case "4":
                     FoodMenu.display();
-                    dishService.updateCount();
+                    dishService.update(UpdateModes.COUNT);
 
                     break;
                 case "5":
@@ -59,7 +59,10 @@ public class AdminUIMenu implements UIMenuEntity {
 
                     break;
                 case "6":
-                    System.exit(6);
+                    FoodMenu.display();
+                    dishService.update(UpdateModes.TIME);
+
+                    break;
                 default:
                     System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 7.");
             }
