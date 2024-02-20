@@ -1,4 +1,4 @@
-package service.util.modes;
+package service.modes;
 
 public enum UserModes {
     VISITOR,

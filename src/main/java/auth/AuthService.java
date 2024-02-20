@@ -3,12 +3,16 @@ package auth;
 import auth.factory.AdminFactory;
 import auth.factory.UserFactory;
 import auth.factory.VisitorFactory;
-import auth.user.Admin;
 import auth.user.User;
 //import auth.user.UserType;
+import service.handlers.AdminMenu;
+import service.handlers.MenuEntity;
+import service.handlers.VisitorMenu;
 import service.util.Util;
-import service.util.modes.InfoModes;
-import service.util.modes.UserModes;
+import service.modes.InfoModes;
+import service.modes.UserModes;
+
+import java.util.Objects;
 
 public class AuthService {
     private UserFactory userFactory;
@@ -53,7 +57,7 @@ public class AuthService {
         return true;
     }
 
-    public boolean authenticateUser() {
+    public MenuEntity authenticateUser() {
         System.out.println("Введите данные для авторизации.");
         String username = Util.handleInfoInput(
                 "Введите имя пользователя: ",
@@ -63,7 +67,7 @@ public class AuthService {
         );
 
         if (username.isEmpty()) {
-            return false;
+            return null;
         }
 
         User user = UserManager.getAll().stream()
@@ -82,10 +86,15 @@ public class AuthService {
         if (user != null && user.getPassword().equals(hashedPassword)) {
             String userType = user.getUserTypeValue();
             System.out.println("Авторизация произошла успешно. Добро пожаловать, " + userType + " " + user.getUserName() + "!");
-            return true;
+
+            if (Objects.equals(userType, "VISITOR")) {
+                return new VisitorMenu();
+            } else {
+                return new AdminMenu();
+            }
         } else {
             System.out.println("Неправильно введено имя пользователя или пароль. Попробуйте ещё раз.");
-            return false;
+            return null;
         }
     }
 }

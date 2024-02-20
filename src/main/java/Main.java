@@ -1,23 +1,18 @@
-package org.example;
-
 import auth.AuthHandler;
 import auth.AuthService;
+import auth.UserManager;
 import auth.user.Admin;
 import auth.user.User;
-import auth.UserManager;
 import auth.user.Visitor;
-import service.util.modes.UserModes;
-//import auth.user.UserType;
+import service.util.Util;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-//        User admin = new Admin("flowykk", "123");
-//        User visitor = new Visitor("flowykk2", "123");
-//
-//        UserManager.addUser(admin);
-//        UserManager.addUser(visitor);
+        User admin = new Admin("flowykk", Util.sha256("flowykk"));
+        User visitor = new Visitor("flowykk2", Util.sha256("flowykk"));
+
+        UserManager.addUser(admin);
+        UserManager.addUser(visitor);
 //
 //        AuthService authService = new AuthService();
 //        authService.registerUser(UserModes.ADMIN);
@@ -26,5 +21,6 @@ public class Main {
         AuthHandler authHandler = new AuthHandler(authService);
 
         authHandler.run();
+
     }
 }
