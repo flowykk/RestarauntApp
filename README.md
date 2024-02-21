@@ -1,9 +1,9 @@
 patterns:
 
-OrderDataBase -> Singleton
-UserDataBase -> Singleton
-FoodMenu -> Singleton
+- OrderDataBase -> Singleton
+- UserDataBase -> Singleton
+- FoodMenu -> Singleton
 
-UserFactory -> Factory Method
+- UserFactory -> Factory Method
 
-OrderState -> State
+- OrderState -> State
