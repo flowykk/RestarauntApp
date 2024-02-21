@@ -1,6 +1,6 @@
 package service.util;
 
-import service.dish.FoodMenu;
+import service.food.FoodMenu;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -14,12 +14,12 @@ public class DishUtil {
             System.out.print("Введите название блюда: ");
             name = scanner.nextLine().trim().toLowerCase();
 
-            if (name.equals("00")) {
+            if (name.equals("0")) {
                 return "";
             }
 
             if (!isValidDishName(name))  {
-                System.out.println("Название блюда введено некорректно!" + "\nПовторите ввод ещё раз или введите 00 для выхода в меню.");
+                System.out.println("Название блюда введено некорректно!" + "\nПовторите ввод ещё раз или введите 0 для выхода в меню.");
             } else {
                 break;
             }
@@ -84,7 +84,7 @@ public class DishUtil {
             return null;
         } else if (FoodMenu.getDishByName(name) == null) {
             System.out.println("❌ Блюда с таким названием не существует!");
-            return null;
+            return "";
         }
 
         return name;

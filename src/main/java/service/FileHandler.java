@@ -1,24 +1,23 @@
-package auth;
+package service;
 
-import auth.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import service.order.Order;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
 
+public class FileHandler {
 
-public class UserFileHandler {
     private static String dataFolderPath = "Data";
-    private static String usersFilePath = "users.json";
 
-    public static void saveUsers(List<User> users) {
-        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, usersFilePath);
+    public static <T> void save(List<T> data, String path) {
+        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, path);
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            String jsonContent = objectMapper.writeValueAsString(users);
-            objectMapper.writeValue(new File(filePath), users);
+            objectMapper.writeValue(new File(filePath), data);
 
             System.out.println("Данные успешно записаны в файл: " + filePath);
         } catch (IOException e) {
