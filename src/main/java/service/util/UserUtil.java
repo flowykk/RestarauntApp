@@ -1,6 +1,6 @@
 package service.util;
 
-import service.modes.InfoModes;
+import service.modes.InfoMode;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class UserUtil {
-    public static String handleInfoInput(String message, String errorMessage, InfoModes mode) {
+    public static String handleInfoInput(String message, String errorMessage, InfoMode mode) {
         Scanner scanner = new Scanner(System.in);
         String data;
 
@@ -21,8 +21,8 @@ public class UserUtil {
                 return "";
             }
 
-            if ((mode == InfoModes.USERNAME && !isValidUsername(data)) ||
-                    (mode == InfoModes.PASSWORD && !isValidPassword(data))) {
+            if ((mode == InfoMode.USERNAME && !isValidUsername(data)) ||
+                    (mode == InfoMode.PASSWORD && !isValidPassword(data))) {
                 System.out.println(errorMessage + "\nПовторите ввод ещё раз или введите 00 для выхода в меню.");
             } else {
                 break;

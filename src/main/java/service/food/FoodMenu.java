@@ -1,14 +1,14 @@
-package service.dish;
+package service.food;
 
-import auth.UserFileHandler;
-import auth.user.User;
-import service.modes.UpdateModes;
+import service.FileHandler;
+import service.modes.UpdateMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FoodMenu {
     private static List<Dish> dishes;
+    private static final String filePath = "dishes.json";
 
     public static List<Dish> getAll() {
         if (dishes == null || dishes.isEmpty()) {
@@ -27,12 +27,7 @@ public class FoodMenu {
         }
 
         for (Dish dish : getAll()) {
-            System.out.println("Название: " + dish.getName());
-            System.out.println("Цена: " + dish.getPrice() + " $");
-            System.out.println("Время приготовления: " + dish.getPrepareTime() + " мин.");
-            System.out.println("Количество: " + dish.getCount());
-            System.out.println("Доступность: " + (dish.getAvailability() ? "\uD83D\uDFE2" : "\uD83D\uDD34"));
-            System.out.println();
+            dish.display();
         }
     }
 
@@ -58,7 +53,7 @@ public class FoodMenu {
 
     public static void add(Dish dish) {
         getAll().add(dish);
-        FoodMenuFileHandler.saveDishes(dishes);
+        FileHandler.save(dishes, filePath);
     }
 
     public static void delete(String name) {
@@ -69,7 +64,7 @@ public class FoodMenu {
             }
         }
 
-        FoodMenuFileHandler.saveDishes(dishes);
+        FileHandler.save(dishes, filePath);
     }
 
     public static void update(String name, double price) {
@@ -80,13 +75,13 @@ public class FoodMenu {
             }
         }
 
-        FoodMenuFileHandler.saveDishes(dishes);
+        FileHandler.save(dishes, filePath);
     }
 
-    public static void update(String name, int data, UpdateModes mode) {
+    public static void update(String name, int data, UpdateMode mode) {
         for (int i = 0; i <= getAll().size(); i++) {
             if (name.equals(dishes.get(i).getName())) {
-                if (mode == UpdateModes.COUNT) {
+                if (mode == UpdateMode.COUNT) {
                     dishes.get(i).setCount(data);
                 } else {
                     dishes.get(i).setPrepareTime(data);
@@ -95,6 +90,6 @@ public class FoodMenu {
             }
         }
 
-        FoodMenuFileHandler.saveDishes(dishes);
+        FileHandler.save(dishes, filePath);
     }
 }

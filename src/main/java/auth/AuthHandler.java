@@ -2,7 +2,7 @@ package auth;
 
 
 import service.handlers.UIMenuEntity;
-import service.modes.UserModes;
+import service.modes.UserMode;
 
 import java.util.Scanner;
 
@@ -43,14 +43,14 @@ public class AuthHandler implements UIMenuEntity {
                     }
                     break;
                 case "2":
-                    if (authService.registerUser(UserModes.VISITOR)) {
+                    if (authService.registerUser(UserMode.VISITOR)) {
                         run();
                     } else {
                         System.out.println("Регистрация не удалась!");
                     }
                     break;
                 case "3":
-                    if (authService.registerUser(UserModes.ADMIN)) {
+                    if (authService.registerUser(UserMode.ADMIN)) {
                         run();
                     } else {
                         System.out.println("Регистрация не удалась!");

@@ -1,6 +1,6 @@
-package service.dish;
+package service.food;
 
-import service.modes.UpdateModes;
+import service.modes.UpdateMode;
 import service.util.DishUtil;
 
 import java.util.Objects;
@@ -27,10 +27,12 @@ public class DishService {
         }
 
         Dish dish = new Dish(name, price, prepareTime);
-        FoodMenu.add(dish);
 
         System.out.println("✅ Блюдо успешно добавлено в меню!");
         System.out.println();
+        dish.display();
+
+        FoodMenu.add(dish);
     }
 
     public void delete() {
@@ -40,7 +42,7 @@ public class DishService {
 
         System.out.println("Введите информацию о блюде для удаления:");
         String name = DishUtil.InputNameForUpdating();
-        if (name == null) {
+        if (name == null || name.equals("")) {
             return;
         }
 
@@ -53,7 +55,7 @@ public class DishService {
     public void updatePrice() {
         System.out.println("Введите информацию о блюде для изменения:");
         String name = DishUtil.InputNameForUpdating();
-        if (name == null) {
+        if (name == null || name.equals("")) {
             return;
         }
 
@@ -68,22 +70,22 @@ public class DishService {
         System.out.println();
     }
 
-    public void update(UpdateModes mode) {
+    public void update(UpdateMode mode) {
         System.out.println("Введите информацию о блюде для изменения:");
         String name = DishUtil.InputNameForUpdating();
-        if (name == null) {
+        if (name == null || name.equals("")) {
             return;
         }
 
-        int data = DishUtil.inputInteger((mode == UpdateModes.COUNT) ? "Введите количество блюда в наличии: " : "Введите время приготовления блюда: ");
+        int data = DishUtil.inputInteger((mode == UpdateMode.COUNT) ? "Введите количество блюда в наличии: " : "Введите время приготовления блюда: ");
         if (data == -1) {
             return;
         }
 
-        if (mode == UpdateModes.COUNT) {
-            FoodMenu.update(name, data, UpdateModes.COUNT);
+        if (mode == UpdateMode.COUNT) {
+            FoodMenu.update(name, data, UpdateMode.COUNT);
         } else {
-            FoodMenu.update(name, data, UpdateModes.TIME);
+            FoodMenu.update(name, data, UpdateMode.TIME);
         }
 
         System.out.println("✅ Информация о блюде успешно обновлена!");

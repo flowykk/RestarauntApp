@@ -1,6 +1,6 @@
 package service.modes;
 
-public enum UserModes {
+public enum UserMode {
     VISITOR,
     ADMIN
 }

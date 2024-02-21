@@ -1,8 +1,8 @@
 package service.handlers;
 
-import service.dish.DishService;
-import service.dish.FoodMenu;
-import service.modes.UpdateModes;
+import service.food.DishService;
+import service.food.FoodMenu;
+import service.modes.UpdateMode;
 
 import java.util.Scanner;
 
@@ -50,7 +50,7 @@ public class AdminUIMenu implements UIMenuEntity {
                     break;
                 case "4":
                     FoodMenu.display();
-                    dishService.update(UpdateModes.COUNT);
+                    dishService.update(UpdateMode.COUNT);
 
                     break;
                 case "5":
@@ -60,7 +60,7 @@ public class AdminUIMenu implements UIMenuEntity {
                     break;
                 case "6":
                     FoodMenu.display();
-                    dishService.update(UpdateModes.TIME);
+                    dishService.update(UpdateMode.TIME);
 
                     break;
                 default:

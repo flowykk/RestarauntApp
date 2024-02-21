@@ -1,6 +1,10 @@
 package auth.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import service.order.Order;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Visitor implements User {
     private String userName;

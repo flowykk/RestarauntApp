@@ -9,21 +9,21 @@ import service.handlers.AdminUIMenu;
 import service.handlers.UIMenuEntity;
 import service.handlers.VisitorUIMenu;
 import service.util.UserUtil;
-import service.modes.InfoModes;
-import service.modes.UserModes;
+import service.modes.InfoMode;
+import service.modes.UserMode;
 
 import java.util.Objects;
 
 public class AuthService {
     private UserFactory userFactory;
 
-    public boolean registerUser(UserModes mode) {
+    public boolean registerUser(UserMode mode) {
         System.out.println("Введите данные для регистрации.");
         String username = UserUtil.handleInfoInput(
                 "Введите имя пользователя: ",
                 "Имя пользователя введено некорректно!\n" +
                         "Имя пользователя должно состоять из не менее чем 6-ти латинских букв или цифр!",
-                InfoModes.USERNAME
+                InfoMode.USERNAME
         );
 
         if (username.isEmpty()) {
@@ -39,12 +39,12 @@ public class AuthService {
                 "Придумайте свой пароль: ",
                 "Пароль введён некорректно!\n" +
                         "Пароль должен состоять из не менее чем 4-ёх латинских букв или цифр!",
-                InfoModes.PASSWORD
+                InfoMode.PASSWORD
         );
         String hashedPassword = UserUtil.sha256(password);
 
         User newUser;
-        if (mode == UserModes.VISITOR) {
+        if (mode == UserMode.VISITOR) {
             userFactory = new VisitorFactory();
         } else {
             userFactory = new AdminFactory();
@@ -63,7 +63,7 @@ public class AuthService {
                 "Введите имя пользователя: ",
                 "Имя пользователя введено некорректно!\n" +
                         "Имя пользователя должно состоять из не менее чем 6-ти латинских букв или цифр!",
-                InfoModes.USERNAME
+                InfoMode.USERNAME
         );
 
         if (username.isEmpty()) {
@@ -79,7 +79,7 @@ public class AuthService {
                 "Введите пароль: ",
                 "Пароль введён некорректно!\n" +
                         "Пароль должен состоять из не менее чем 4-ёх латинских букв или цифр!",
-                InfoModes.PASSWORD
+                InfoMode.PASSWORD
         );
         String hashedPassword = UserUtil.sha256(password);
 

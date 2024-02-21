@@ -1,6 +1,6 @@
 package service.modes;
 
-public enum InfoModes {
+public enum InfoMode {
     USERNAME,
     PASSWORD
 }

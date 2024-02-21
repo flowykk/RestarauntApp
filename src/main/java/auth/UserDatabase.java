@@ -1,12 +1,14 @@
 package auth;
 
 import auth.user.User;
+import service.FileHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDatabase {
     private static List<User> users;
+    private static final String filePath = "users.json";
 
     public static List<User> getAll() {
         if (users == null) {
@@ -22,7 +24,7 @@ public class UserDatabase {
         }
 
         users.add(user);
-        UserFileHandler.saveUsers(users);
+        FileHandler.save(users, filePath);
     }
 
     public User getUserByUsername(String username) {

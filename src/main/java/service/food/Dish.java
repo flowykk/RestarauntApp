@@ -1,4 +1,4 @@
-package service.dish;
+package service.food;
 
 public class Dish {
     private String name;
@@ -27,4 +27,12 @@ public class Dish {
     public void setCount(int count) { this.count = count; }
     public void setPrepareTime(int prepareTime) { this.prepareTime = prepareTime; }
 
+    public void display() {
+        System.out.println("- Блюдо: " + getName());
+        System.out.println("Цена: " + getPrice() + " $");
+        System.out.println("Время приготовления: " + getPrepareTime() + " мин.");
+        System.out.println("Количество: " + getCount());
+        System.out.println("Доступность: " + (getAvailability() ? "\uD83D\uDFE2" : "\uD83D\uDD34"));
+        System.out.println();
+    }
 }
