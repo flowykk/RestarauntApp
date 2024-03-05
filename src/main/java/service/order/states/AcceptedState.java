@@ -20,6 +20,11 @@ public class AcceptedState extends OrderState {
     }
 
     @Override
+    public String getReadyState() {
+        return "ACCEPTED";
+    }
+
+    @Override
     public void getProcessed() {
         order.changeState(new InProcessState(order));
     }

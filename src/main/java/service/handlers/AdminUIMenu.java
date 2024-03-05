@@ -25,6 +25,9 @@ public class AdminUIMenu implements UIMenuEntity {
         System.out.println("4. Обновить количество для блюда");
         System.out.println("5. Обновить цену для блюда");
         System.out.println("6. Обновить время выполнения блюда");
+        System.out.println("7. Посмотреть статистику рестарана");
+        System.out.println("8. Посмотреть черный список ресторана");
+        System.out.println("9. Получить список зарегистрированных админов");
         System.out.println("0. Выход");
     }
 

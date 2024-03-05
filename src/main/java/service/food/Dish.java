@@ -1,15 +1,40 @@
 package service.food;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import service.FileHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dish {
     private String name;
     private double price;
     private int count;
     private int prepareTime;
+    private List<String> feedBacks;
 
-    public Dish(String name, double price, int prepareTime) {
+    public Dish() {
+        name = "default";
+        price = 0;
+        prepareTime = 0;
+        feedBacks = new ArrayList<String>();
+        count = 1;
+    }
+
+    public Dish(@JsonProperty("name") String name, @JsonProperty("price") double price, @JsonProperty("preparetime") int prepareTime, @JsonProperty("feedbacks") List<String> feedBacks, @JsonProperty("count") int count) {
         this.name = name;
         this.price = price;
         this.prepareTime = prepareTime;
+        this.feedBacks = feedBacks;
+        this.count = count;
+    }
+
+    public Dish(String name,double price, int prepareTime) {
+        this.name = name;
+        this.price = price;
+        this.prepareTime = prepareTime;
+        this.feedBacks = new ArrayList<String>();
         count = 1;
     }
 
@@ -19,8 +44,16 @@ public class Dish {
 
     public int getCount() { return count; }
     public int getPrepareTime() { return prepareTime; }
+    public List<String> getFeedBacks() { return feedBacks; }
 
+    @JsonIgnore
     public boolean getAvailability() { return count > 0; }
+
+    public void addFeedBack(String feedBack) {
+        feedBacks.add(feedBack);
+
+        FileHandler.save(FoodMenu.getAll(), "dishes.json");
+    }
 
     public void setPrice(double price) { this.price = price; }
 

@@ -3,7 +3,6 @@ package service.order;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import service.food.Dish;
 import service.modes.orderModes.paymentStatusMode;
-import service.modes.orderModes.readyStatusMode;
 import service.order.states.AcceptedState;
 import service.order.states.OrderState;
 
@@ -17,7 +16,6 @@ import static service.modes.orderModes.paymentStatusMode.PAID;
 public class Order implements Runnable {
     @JsonProperty("Id")
     private int id;
-
     @JsonProperty("dishes")
     private List<Dish> dishes;
     @JsonProperty("totalPrice")
@@ -31,6 +29,14 @@ public class Order implements Runnable {
         totalPrice = 0;
         paymentStatus = NOTPAID;
         readyState = new AcceptedState(this);
+    }
+
+    public Order(@JsonProperty("Id") int id, @JsonProperty("dishes") List<Dish> dishes, @JsonProperty("totalPrice") double totalPrice, @JsonProperty("readyStatus") OrderState readyState) {
+        this.id = id;
+        this.dishes = dishes;
+        this.totalPrice = totalPrice;
+        this.readyState = readyState;
+        this.paymentStatus = NOTPAID;
     }
 
     public void changeState(OrderState state) {
@@ -83,6 +89,10 @@ public class Order implements Runnable {
     public OrderState getReadyState() {
         return readyState;
     }
+
+    @JsonProperty("readyState")
+    public String getReadyStateString() { return readyState.getReadyState(); }
+
     public double getTotalPrice() { return totalPrice; }
 
     public void pay() {

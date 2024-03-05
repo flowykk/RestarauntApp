@@ -16,6 +16,11 @@ public class InProcessState extends OrderState {
     }
 
     @Override
+    public String getReadyState() {
+        return "INPROCESS";
+    }
+
+    @Override
     public void getReady() {
         order.changeState(new ReadyState(order));
     }

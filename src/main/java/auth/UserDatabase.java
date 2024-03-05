@@ -1,6 +1,8 @@
 package auth;
 
+import auth.user.Admin;
 import auth.user.User;
+import auth.user.Visitor;
 import service.FileHandler;
 
 import java.util.ArrayList;
@@ -8,6 +10,9 @@ import java.util.List;
 
 public class UserDatabase {
     private static List<User> users;
+
+    private static List<Admin> admins;
+    private static List<Visitor> visitors;
     private static final String filePath = "users.json";
 
     public static List<User> getAll() {
@@ -19,12 +24,18 @@ public class UserDatabase {
     }
 
     public static void addUser(User user) {
-        if (users == null) {
-            users = new ArrayList<User>();
-        }
+        if (users == null) users = new ArrayList<User>();
+        if (admins == null) admins = new ArrayList<Admin>();
+        if (visitors == null) visitors = new ArrayList<Visitor>();
 
         users.add(user);
+        if (user.getUserType().equals("ADMIN")) admins.add(new Admin(user.getUserName(), user.getPassword()));
+        else visitors.add(new Visitor(user.getUserName(), user.getPassword()));
+
         FileHandler.save(users, filePath);
+
+        FileHandler.save(admins, "admins.json");
+        FileHandler.save(visitors, "visitors.json");
     }
 
     public User getUserByUsername(String username) {
@@ -35,11 +46,5 @@ public class UserDatabase {
         }
 
         return null;
-    }
-
-    public boolean isValidCredentials(String username, String password) {
-        User user = getUserByUsername(username);
-
-        return user != null && user.getPassword().equals(password);
     }
 }
