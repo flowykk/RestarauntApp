@@ -5,10 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Admin implements User {
     private String userName;
     private String password;
+    @JsonProperty("userType")
+    private String userType;
 
-    public Admin(String userName, String passwordHash) {
+    public Admin(@JsonProperty("userName") String userName,  @JsonProperty("password") String passwordHash) {
         this.userName = userName;
         this.password = passwordHash;
+        this.userType = "ADMIN";
     }
 
     @Override
@@ -18,5 +21,15 @@ public class Admin implements User {
     public String getPassword() { return this.password; }
 
     @Override @JsonProperty("userType")
-    public String getUserTypeValue() { return "ADMIN"; }
+    public String getUserType() { return "ADMIN"; }
+
+    @Override @JsonProperty("userType")
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Идентификатор админа: " + userName);
+    }
 }

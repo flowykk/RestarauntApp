@@ -84,7 +84,7 @@ public class AuthService {
         String hashedPassword = UserUtil.sha256(password);
 
         if (user != null && user.getPassword().equals(hashedPassword)) {
-            String userType = user.getUserTypeValue();
+            String userType = user.getUserType();
             System.out.println("✅ Авторизация произошла успешно. Добро пожаловать, " + userType + " " + user.getUserName() + "!");
 
             if (Objects.equals(userType, "VISITOR")) {

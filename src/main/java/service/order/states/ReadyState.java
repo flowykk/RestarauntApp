@@ -1,5 +1,6 @@
 package service.order.states;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import service.order.Order;
 
 public class ReadyState extends OrderState {
@@ -14,6 +15,9 @@ public class ReadyState extends OrderState {
 
         super.display();
     }
+
+    @Override @JsonProperty("readyState")
+    public String getReadyState() { return "VISITOR"; }
 
     @Override
     public void getProcessed() { }

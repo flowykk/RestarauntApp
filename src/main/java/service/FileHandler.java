@@ -1,11 +1,20 @@
 package service;
 
+import auth.UserDatabase;
+import auth.user.Admin;
+import auth.user.Visitor;
+import auth.user.User;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import service.food.Dish;
+import service.food.FoodMenu;
 import service.order.Order;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileHandler {
@@ -22,6 +31,55 @@ public class FileHandler {
             System.out.println("Данные успешно записаны в файл: " + filePath);
         } catch (IOException e) {
             System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+        }
+    }
+
+    public static void uploadAdmins() {
+        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, "admins.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            List<Admin> users = Arrays.asList(objectMapper.readValue(new File(filePath), Admin[].class));
+
+            for (Admin admin : users) {
+                UserDatabase.addUser(admin);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
+    public static void uploadVisitors() {
+        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, "visitors.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            List<Visitor> users = Arrays.asList(objectMapper.readValue(new File(filePath), Visitor[].class));
+
+            for (Visitor visitor : users) {
+                UserDatabase.addUser(visitor);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
+    public static void uploadDishes(String path) {
+        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, path);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            List<Dish> dishes = Arrays.asList(objectMapper.readValue(new File(filePath), Dish[].class));
+
+            for (Dish dish : dishes) {
+                dish.display();
+                FoodMenu.add(dish);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 }

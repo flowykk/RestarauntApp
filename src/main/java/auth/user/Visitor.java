@@ -9,10 +9,12 @@ import java.util.List;
 public class Visitor implements User {
     private String userName;
     private String password;
+    private String userType;
 
-    public Visitor(String userName, String passwordHash) {
+    public Visitor(@JsonProperty("userName") String userName,  @JsonProperty("password") String passwordHash) {
         this.userName = userName;
         this.password = passwordHash;
+        userType = "VISITOR";
     }
 
     @Override
@@ -22,6 +24,16 @@ public class Visitor implements User {
     public String getPassword() { return this.password; }
 
     @Override @JsonProperty("userType")
-    public String getUserTypeValue() { return "VISITOR"; }
+    public String getUserType() { return "VISITOR"; }
+
+    @Override @JsonProperty("userType")
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Идентификатор клиента: " + userName);
+    }
 }
 

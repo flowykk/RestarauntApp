@@ -1,10 +1,10 @@
 package service.order.states;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import service.food.Dish;
 import service.order.Order;
 
 import static service.modes.orderModes.paymentStatusMode.NOTPAID;
-import static service.modes.orderModes.paymentStatusMode.PAID;
 
 abstract public class OrderState {
     protected Order order;
@@ -31,6 +31,8 @@ abstract public class OrderState {
         }
     }
 
+    abstract public String getReadyState();
     abstract public void getProcessed();
     abstract public void getReady();
+
 }
