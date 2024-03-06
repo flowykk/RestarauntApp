@@ -1,5 +1,7 @@
 package service.handlers;
 
+import auth.UserDatabase;
+import service.RestaurantStats;
 import service.food.DishService;
 import service.food.FoodMenu;
 import service.modes.UpdateMode;
@@ -25,7 +27,7 @@ public class AdminUIMenu implements UIMenuEntity {
         System.out.println("4. Обновить количество для блюда");
         System.out.println("5. Обновить цену для блюда");
         System.out.println("6. Обновить время выполнения блюда");
-        System.out.println("7. Посмотреть статистику рестарана");
+        System.out.println("7. Посмотреть выручку ресторана");
         System.out.println("8. Посмотреть черный список ресторана");
         System.out.println("9. Получить список зарегистрированных админов");
         System.out.println("0. Выход");
@@ -34,7 +36,7 @@ public class AdminUIMenu implements UIMenuEntity {
     @Override
     public void handleMenuInput() {
         while (true) {
-            System.out.print("Введите число от 0 до 6: ");
+            System.out.print("Введите число от 0 до 9: ");
             String userInput = scanner.nextLine();
 
             switch (userInput) {
@@ -66,6 +68,14 @@ public class AdminUIMenu implements UIMenuEntity {
                     dishService.update(UpdateMode.TIME);
 
                     break;
+                case "7":
+                    RestaurantStats.display();
+                    break;
+                case "8":
+                    RestaurantStats.getBlackList();
+                    break;
+                case "9":
+                    UserDatabase.displayAdmins();
                 default:
                     System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 7.");
             }

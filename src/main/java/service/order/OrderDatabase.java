@@ -1,5 +1,6 @@
 package service.order;
 
+import auth.user.User;
 import service.FileHandler;
 
 import java.util.ArrayList;
@@ -21,6 +22,16 @@ public class OrderDatabase {
         orders = getAll();
         orders.add(order);
         FileHandler.save(orders, filePath);
+    }
+
+    public static Order getOrderById(int id) {
+        for (Order order : orders) {
+            if (order.getId() == id) {
+                return order;
+            }
+        }
+
+        return null;
     }
 
     public static void display() {

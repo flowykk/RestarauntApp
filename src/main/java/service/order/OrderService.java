@@ -1,6 +1,8 @@
 package service.order;
 
 import auth.user.User;
+import service.RestaurantStats;
+import service.modes.orderModes.paymentStatusMode;
 import service.util.OrderUtil;
 
 public class OrderService {
@@ -18,5 +20,28 @@ public class OrderService {
         order.getReadyState().display();
 
         OrderDatabase.add(order);
+    }
+
+    public void pay() {
+        OrderDatabase.display();
+
+        System.out.println("Введите инфорацию о заказе для оплаты: ");
+        int id = OrderUtil.inputOrderById();
+        if (id == 0) {
+            return;
+        }
+
+        Order order = OrderDatabase.getOrderById(id);
+        if (order == null) {
+            System.out.println("Произошла ошибка!");
+            return;
+        } else if (order.getPaymentStatus() == paymentStatusMode.PAID) {
+            System.out.println("Ваше Заказ Id " + id + " уже оплачен!");
+            return;
+        }
+
+        order.pay();
+
+        System.out.println("Оплата произошла успешно!");
     }
 }

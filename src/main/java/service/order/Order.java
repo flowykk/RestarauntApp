@@ -1,6 +1,7 @@
 package service.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import service.RestaurantStats;
 import service.food.Dish;
 import service.modes.orderModes.paymentStatusMode;
 import service.order.states.AcceptedState;
@@ -97,6 +98,7 @@ public class Order implements Runnable {
 
     public void pay() {
         paymentStatus = PAID;
+        RestaurantStats.updateTotalRevenue(totalPrice);
     }
 
     public void add(Dish dish) {

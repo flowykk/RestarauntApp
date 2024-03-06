@@ -9,7 +9,7 @@ public class InProcessState extends OrderState {
 
     @Override
     public void display() {
-        System.out.println("\n- ЗАКАЗ " + order.getId());
+        System.out.println("\n- ЗАКАЗ: Id " + order.getId());
         System.out.println("Статус готовности заказа: \uD83D\uDFE1 (Готовится)");
 
         super.display();

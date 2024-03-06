@@ -1,5 +1,6 @@
 package service.util;
 
+import service.food.Dish;
 import service.food.FoodMenu;
 
 import java.util.Objects;
@@ -78,11 +79,12 @@ public class DishUtil {
         return data;
     }
 
-    public static String InputNameForUpdating() {
+    public static String InputDishName() {
         String name = DishUtil.inputName();
+        Dish dish = FoodMenu.getDishByName(name);
         if (Objects.equals(name, "")) {
             return null;
-        } else if (FoodMenu.getDishByName(name) == null) {
+        } else if (dish == null) {
             System.out.println("❌ Блюда с таким названием не существует!");
             return "";
         }

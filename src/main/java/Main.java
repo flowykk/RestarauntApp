@@ -19,6 +19,7 @@ public class Main {
         FileHandler.uploadAdmins();
         FileHandler.uploadVisitors();
         FileHandler.uploadDishes("dishes.json");
+        FileHandler.uploadStats();
 
         User admin = new Admin("flowykk", UserUtil.sha256("flowykk"));
         User visitor = new Visitor("flowykk2", UserUtil.sha256("flowykk"));
@@ -50,12 +51,11 @@ public class Main {
 //        AuthHandler authHandler = new AuthHandler(authService);
 //        authHandler.run();
 
-        AdminUIMenu menu = new AdminUIMenu();
-        menu.run();
-
-
-//        VisitorUIMenu menu = new VisitorUIMenu();
+//        AdminUIMenu menu = new AdminUIMenu();
 //        menu.run();
+
+        VisitorUIMenu menu = new VisitorUIMenu();
+        menu.run();
 
 //        OrderService orderService = new OrderService();
 //        orderService.create();

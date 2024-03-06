@@ -38,7 +38,7 @@ public class UserDatabase {
         FileHandler.save(visitors, "visitors.json");
     }
 
-    public User getUserByUsername(String username) {
+    public static User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUserName().equals(username)) {
                 return user;
@@ -46,5 +46,15 @@ public class UserDatabase {
         }
 
         return null;
+    }
+
+    public static void displayAdmins() {
+        System.out.println();
+        if (admins == null) admins = new ArrayList<Admin>();
+
+        for (Admin admin : admins) {
+            admin.displayInfo();
+        }
+        System.out.println();
     }
 }

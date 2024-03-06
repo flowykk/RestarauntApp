@@ -10,14 +10,14 @@ public class ReadyState extends OrderState {
 
     @Override
     public void display() {
-        System.out.println("\n- ЗАКАЗ " + order.getId());
+        System.out.println("\n- ЗАКАЗ: Id " + order.getId());
         System.out.println("Статус готовности заказа: \uD83D\uDFE2 (Готов)");
 
         super.display();
     }
 
     @Override @JsonProperty("readyState")
-    public String getReadyState() { return "VISITOR"; }
+    public String getReadyState() { return "READY"; }
 
     @Override
     public void getProcessed() { }

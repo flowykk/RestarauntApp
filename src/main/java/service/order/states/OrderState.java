@@ -24,6 +24,7 @@ abstract public class OrderState {
         System.out.println("Стоимость заказа: " + order.getTotalPrice() + " $");
         System.out.println();
 
+        System.out.println("Состав заказа:");
         for (Dish dish : order.getDishes()) {
             System.out.println("Блюдо: " + dish.getName());
             System.out.println("Цена: " + dish.getPrice() + " $");

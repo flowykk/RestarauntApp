@@ -17,12 +17,12 @@ public class DishService {
         }
 
         double price = DishUtil.inputPrice();
-        if (price == -1) {
+        if (price == 0) {
             return;
         }
 
         int prepareTime = DishUtil.inputInteger("Введите время приготовления блюда: ");
-        if (prepareTime == -1) {
+        if (prepareTime == 0) {
             return;
         }
 
@@ -41,7 +41,7 @@ public class DishService {
         }
 
         System.out.println("Введите информацию о блюде для удаления:");
-        String name = DishUtil.InputNameForUpdating();
+        String name = DishUtil.InputDishName();
         if (name == null || name.equals("")) {
             return;
         }
@@ -54,7 +54,7 @@ public class DishService {
 
     public void updatePrice() {
         System.out.println("Введите информацию о блюде для изменения:");
-        String name = DishUtil.InputNameForUpdating();
+        String name = DishUtil.InputDishName();
         if (name == null || name.equals("")) {
             return;
         }
@@ -72,7 +72,7 @@ public class DishService {
 
     public void update(UpdateMode mode) {
         System.out.println("Введите информацию о блюде для изменения:");
-        String name = DishUtil.InputNameForUpdating();
+        String name = DishUtil.InputDishName();
         if (name == null || name.equals("")) {
             return;
         }
