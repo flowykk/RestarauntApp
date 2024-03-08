@@ -1,5 +1,6 @@
 package service;
 
+import auth.user.User;
 import auth.user.Visitor;
 
 import java.util.ArrayList;
@@ -24,9 +25,22 @@ public class RestaurantStats {
 
     public static List<Visitor> getBlackList() { return blackList; }
 
-    public static void displayBlackList() {
+    public static void addToBlackList(Visitor user) {
         if (blackList == null)  {
             blackList = new ArrayList<>();
+        }
+        blackList.add(user);
+        System.out.println(blackList.size());
+    }
+
+    public static void displayBlackList() {
+        System.out.println(blackList.size());
+        if (blackList == null)  {
+            blackList = new ArrayList<>();
+            return;
+        }
+        if (blackList.isEmpty()) {
+            System.out.println("❌ Черный список пока пуст!");
             return;
         }
         System.out.println();

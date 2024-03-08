@@ -5,6 +5,7 @@ import auth.user.Admin;
 import auth.user.User;
 import auth.user.Visitor;
 import service.FileHandler;
+import service.RestaurantStats;
 import service.food.Dish;
 import service.food.FoodMenu;
 import service.handlers.AdminUIMenu;
@@ -22,10 +23,12 @@ public class Main {
         FileHandler.uploadStats();
 
         User admin = new Admin("flowykk", UserUtil.sha256("flowykk"));
-        User visitor = new Visitor("flowykk2", UserUtil.sha256("flowykk"));
+        Visitor visitor = new Visitor("flowykk2", UserUtil.sha256("flowykk"));
 
-        //UserDatabase.addUser(admin);
-        //UserDatabase.addUser(visitor);
+        RestaurantStats.addToBlackList(visitor);
+
+        UserDatabase.addUser(admin);
+        UserDatabase.addUser(visitor);
 
 //        FoodMenu.display();
 //
@@ -42,7 +45,7 @@ public class Main {
         order.add(borsh);
         order.add(pizza);
 
-        OrderDatabase.add(order);
+        //OrderDatabase.add(order);
 //
 //        AuthService authService = new AuthService();
 //        authService.registerUser(UserModes.ADMIN);
@@ -51,11 +54,11 @@ public class Main {
 //        AuthHandler authHandler = new AuthHandler(authService);
 //        authHandler.run();
 
-//        AdminUIMenu menu = new AdminUIMenu();
-//        menu.run();
-
-        VisitorUIMenu menu = new VisitorUIMenu();
+        AdminUIMenu menu = new AdminUIMenu();
         menu.run();
+
+//        VisitorUIMenu menu = new VisitorUIMenu();
+//        menu.run();
 
 //        OrderService orderService = new OrderService();
 //        orderService.create();

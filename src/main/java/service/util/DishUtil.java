@@ -40,7 +40,7 @@ public class DishUtil {
 
                 if (price == -1) {
                     return 0.0;
-                } else if (price < 0) {
+                } else if (price <= 0) {
                     System.out.println("Цена блюда должна быть больше нуля.");
                 } else {
                     break;

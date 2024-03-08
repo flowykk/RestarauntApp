@@ -20,7 +20,7 @@ public class AdminUIMenu implements UIMenuEntity {
 
     @Override
     public void displayMenu() {
-        System.out.println("Добро пожаловать в главное меню админа ресторана!");
+        System.out.println("Добро пожаловать в главное меню ADMIN!");
         System.out.println("1. Посмотреть меню");
         System.out.println("2. Добавить блюдо в меню");
         System.out.println("3. Удалить блюдо из меню");
@@ -29,14 +29,15 @@ public class AdminUIMenu implements UIMenuEntity {
         System.out.println("6. Обновить время выполнения блюда");
         System.out.println("7. Посмотреть выручку ресторана");
         System.out.println("8. Посмотреть черный список ресторана");
-        System.out.println("9. Получить список зарегистрированных админов");
+        System.out.println("9. Добавить пользоватя в чёрный список");
+        System.out.println("10. Получить список зарегистрированных админов");
         System.out.println("0. Выход");
     }
 
     @Override
     public void handleMenuInput() {
         while (true) {
-            System.out.print("Введите число от 0 до 9: ");
+            System.out.print("Введите число от 0 до 10: ");
             String userInput = scanner.nextLine();
 
             switch (userInput) {
@@ -72,12 +73,15 @@ public class AdminUIMenu implements UIMenuEntity {
                     RestaurantStats.display();
                     break;
                 case "8":
-                    RestaurantStats.getBlackList();
+                    RestaurantStats.displayBlackList();
                     break;
                 case "9":
+                    System.out.println(9);
+                    break;
+                case "10":
                     UserDatabase.displayAdmins();
                 default:
-                    System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 7.");
+                    System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 10.");
             }
 
             run();

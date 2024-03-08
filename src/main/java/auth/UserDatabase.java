@@ -51,7 +51,7 @@ public class UserDatabase {
     public static void displayAdmins() {
         System.out.println();
         if (admins == null) admins = new ArrayList<Admin>();
-
+        System.out.println(admins);
         for (Admin admin : admins) {
             admin.displayInfo();
         }
