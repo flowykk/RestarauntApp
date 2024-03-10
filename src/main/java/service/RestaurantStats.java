@@ -37,11 +37,9 @@ public class RestaurantStats {
 
         FileHandler.saveStats("stats.json");
         blackList.add(user);
-        System.out.println(blackList.size());
     }
 
     public static void displayBlackList() {
-        System.out.println(blackList.size());
         if (blackList == null)  {
             blackList = new ArrayList<>();
             return;

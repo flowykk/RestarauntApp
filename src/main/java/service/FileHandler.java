@@ -28,7 +28,7 @@ public class FileHandler {
         try {
             objectMapper.writeValue(new File(filePath), data);
         } catch (IOException e) {
-            System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ public class FileHandler {
         try {
             objectMapper.writeValue(new File(filePath), restaurantStats);
         } catch (IOException e) {
-            System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
