@@ -1,1 +1,1 @@
-[{"Id":1,"dishes":[{"name":"a","price":100.0,"count":1,"prepareTime":10,"feedBacks":["круто"]},{"name":"b","price":150.0,"count":1,"prepareTime":10,"feedBacks":[]}],"totalPrice":250.0,"paymentStatus":"NOTPAID","readyState":"ACCEPTED"}]
+[{"Id":1,"dishes":[{"name":"dish","price":30.0,"count":1,"prepareTime":30,"feedBacks":[]}],"totalPrice":30.0,"totalPrepareTime":30,"paymentStatus":"NOTPAID","readyState":"READY"}]

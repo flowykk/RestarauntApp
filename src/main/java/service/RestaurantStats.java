@@ -23,12 +23,19 @@ public class RestaurantStats {
 
     public static void setBlackList(List<Visitor> blackList) { RestaurantStats.blackList = blackList; }
 
-    public static List<Visitor> getBlackList() { return blackList; }
+    public static List<Visitor> getBlackList() {
+        if (blackList == null)  {
+            blackList = new ArrayList<>();
+        }
+        return blackList;
+    }
 
     public static void addToBlackList(Visitor user) {
         if (blackList == null)  {
             blackList = new ArrayList<>();
         }
+
+        FileHandler.saveStats("stats.json");
         blackList.add(user);
         System.out.println(blackList.size());
     }

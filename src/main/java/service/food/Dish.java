@@ -66,6 +66,13 @@ public class Dish {
         System.out.println("Время приготовления: " + getPrepareTime() + " мин.");
         System.out.println("Количество: " + getCount());
         System.out.println("Доступность: " + (getAvailability() ? "\uD83D\uDFE2" : "\uD83D\uDD34"));
+
+        if (!feedBacks.isEmpty()) {
+            System.out.println("Отзывы клиентов: ");
+            for (String feedback : feedBacks) {
+                System.out.println(feedback);
+            }
+        }
         System.out.println();
     }
 }

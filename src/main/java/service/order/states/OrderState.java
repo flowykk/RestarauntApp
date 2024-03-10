@@ -22,6 +22,7 @@ abstract public class OrderState {
         }
 
         System.out.println("Стоимость заказа: " + order.getTotalPrice() + " $");
+        System.out.println("Время приготовления заказа: " + order.getTotalPrepareTime() + " мин.");
         System.out.println();
 
         System.out.println("Состав заказа:");

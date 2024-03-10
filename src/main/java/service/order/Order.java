@@ -21,6 +21,8 @@ public class Order implements Runnable {
     private List<Dish> dishes;
     @JsonProperty("totalPrice")
     private double totalPrice;
+    @JsonProperty("totalPrepareTime")
+    private int totalPrepareTime;
     private paymentStatusMode paymentStatus;
     private OrderState readyState;
 
@@ -28,14 +30,16 @@ public class Order implements Runnable {
         id = OrderDatabase.getAll().size() + 1;
         dishes = new ArrayList<Dish>();
         totalPrice = 0;
+        totalPrepareTime = 0;
         paymentStatus = NOTPAID;
         readyState = new AcceptedState(this);
     }
 
-    public Order(@JsonProperty("Id") int id, @JsonProperty("dishes") List<Dish> dishes, @JsonProperty("totalPrice") double totalPrice, @JsonProperty("readyStatus") OrderState readyState) {
+    public Order(@JsonProperty("Id") int id, @JsonProperty("dishes") List<Dish> dishes, @JsonProperty("totalPrice") double totalPrice, @JsonProperty("totalPrepareTime") int totalPrepareTime, @JsonProperty("readyStatus") OrderState readyState) {
         this.id = id;
         this.dishes = dishes;
         this.totalPrice = totalPrice;
+        this.totalPrepareTime = totalPrepareTime;
         this.readyState = readyState;
         this.paymentStatus = NOTPAID;
     }
@@ -52,6 +56,13 @@ public class Order implements Runnable {
         totalPrice = 0;
         for (Dish item : dishes) {
             totalPrice += item.getPrice();
+        }
+    }
+
+    public void computeTotalPrepareTime() {
+        totalPrepareTime = 0;
+        for (Dish item : dishes) {
+            totalPrepareTime += item.getPrepareTime();
         }
     }
 
@@ -96,6 +107,8 @@ public class Order implements Runnable {
 
     public double getTotalPrice() { return totalPrice; }
 
+    public int getTotalPrepareTime() { return totalPrepareTime; }
+
     public void pay() {
         paymentStatus = PAID;
         RestaurantStats.updateTotalRevenue(totalPrice);
@@ -104,10 +117,27 @@ public class Order implements Runnable {
     public void add(Dish dish) {
         dishes.add(dish);
         computeTotalPrice();
+        computeTotalPrepareTime();
     }
 
-    @Override
     public void run() {
+        System.out.println(totalPrepareTime * 1000L / 2);
+        readyState.display();
+        long millis = totalPrepareTime * 1000L / 2;
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        readyState.getProcessed();
 
+        readyState.display();
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        readyState.getReady();
+        readyState.display();
     }
 }

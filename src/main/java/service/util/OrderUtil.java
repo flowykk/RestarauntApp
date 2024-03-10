@@ -17,7 +17,6 @@ public class OrderUtil {
             dishName = DishUtil.InputDishName();
             Dish dish = FoodMenu.getDishByName(dishName);
             if (dish == null) {
-                System.out.println("Не удалось найти текущее блюдо.");
                 continue;
             }
 

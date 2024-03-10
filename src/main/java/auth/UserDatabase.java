@@ -51,9 +51,17 @@ public class UserDatabase {
     public static void displayAdmins() {
         System.out.println();
         if (admins == null) admins = new ArrayList<Admin>();
-        System.out.println(admins);
         for (Admin admin : admins) {
             admin.displayInfo();
+        }
+        System.out.println();
+    }
+
+    public static void displayVisitors() {
+        System.out.println();
+        if (visitors == null) visitors = new ArrayList<Visitor>();
+        for (Visitor visitor : visitors) {
+            visitor.displayInfo();
         }
         System.out.println();
     }

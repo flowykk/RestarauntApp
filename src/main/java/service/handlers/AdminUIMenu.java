@@ -5,6 +5,7 @@ import service.RestaurantStats;
 import service.food.DishService;
 import service.food.FoodMenu;
 import service.modes.UpdateMode;
+import service.util.UserUtil;
 
 import java.util.Scanner;
 
@@ -29,7 +30,7 @@ public class AdminUIMenu implements UIMenuEntity {
         System.out.println("6. Обновить время выполнения блюда");
         System.out.println("7. Посмотреть выручку ресторана");
         System.out.println("8. Посмотреть черный список ресторана");
-        System.out.println("9. Добавить пользоватя в чёрный список");
+        System.out.println("9. Добавить пользователя в чёрный список");
         System.out.println("10. Получить список зарегистрированных админов");
         System.out.println("0. Выход");
     }
@@ -76,7 +77,7 @@ public class AdminUIMenu implements UIMenuEntity {
                     RestaurantStats.displayBlackList();
                     break;
                 case "9":
-                    System.out.println(9);
+                    UserUtil.handleAddingToBlackList();
                     break;
                 case "10":
                     UserDatabase.displayAdmins();

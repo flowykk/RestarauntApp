@@ -4,6 +4,7 @@ import service.modes.UpdateMode;
 import service.util.DishUtil;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class DishService {
     public void create() {
@@ -92,4 +93,23 @@ public class DishService {
         System.out.println();
     }
 
+    public void addFeedBack() {
+        String name = DishUtil.InputDishName();
+        if (name == null || name.equals("")) {
+            return;
+        }
+
+        Dish dish = FoodMenu.getDishByName(name);
+        if (dish == null) {
+            System.out.println("Не удалось найти блюдо!");
+            return;
+        }
+
+        System.out.println("Введите содержание отзыва:");
+        Scanner scanner = new Scanner(System.in);
+        String feedback = scanner.nextLine().trim().toLowerCase();
+
+        dish.addFeedBack(feedback);
+        System.out.println("✅ Отзыв успешно добавлен в базу!");
+    }
 }

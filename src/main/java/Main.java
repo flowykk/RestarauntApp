@@ -54,11 +54,11 @@ public class Main {
 //        AuthHandler authHandler = new AuthHandler(authService);
 //        authHandler.run();
 
-        AdminUIMenu menu = new AdminUIMenu();
-        menu.run();
-
-//        VisitorUIMenu menu = new VisitorUIMenu();
+//        AdminUIMenu menu = new AdminUIMenu();
 //        menu.run();
+
+        VisitorUIMenu menu = new VisitorUIMenu();
+        menu.run();
 
 //        OrderService orderService = new OrderService();
 //        orderService.create();

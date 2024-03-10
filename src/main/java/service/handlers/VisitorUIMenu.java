@@ -1,5 +1,7 @@
 package service.handlers;
 
+import service.food.Dish;
+import service.food.DishService;
 import service.food.FoodMenu;
 import service.order.Order;
 import service.order.OrderDatabase;
@@ -10,10 +12,12 @@ import java.util.Scanner;
 public class VisitorUIMenu implements UIMenuEntity {
     private final Scanner scanner;
     private final OrderService orderService;
+    private final DishService dishService;
 
     public VisitorUIMenu() {
         scanner = new Scanner(System.in);
         orderService = new OrderService();
+        dishService = new DishService();
     }
 
     @Override
@@ -32,13 +36,14 @@ public class VisitorUIMenu implements UIMenuEntity {
         System.out.println("5. Убрать блюдо из заказа");
         System.out.println("6. Отменить заказ");
         System.out.println("7. Заплатить за заказ");
+        System.out.println("8. Добавить отзыв на блюдо");
         System.out.println("0. Выход");
     }
 
     @Override
     public void handleMenuInput() {
         while (true) {
-            System.out.print("Введите число от 0 до 7: ");
+            System.out.print("Введите число от 0 до 8: ");
             String userInput = scanner.nextLine();
 
             switch (userInput) {
@@ -66,11 +71,16 @@ public class VisitorUIMenu implements UIMenuEntity {
                 case "7":
                     orderService.pay();
                     break;
+                case "8":
+                    FoodMenu.display();
+
+                    dishService.addFeedBack();
+                    break;
                 case "0":
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 7.");
+                    System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 8.");
             }
 
             run();

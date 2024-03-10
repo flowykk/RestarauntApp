@@ -21,6 +21,8 @@ public class OrderDatabase {
     public static void add(Order order) {
         orders = getAll();
         orders.add(order);
+        //order.run();
+
         FileHandler.save(orders, filePath);
     }
 
