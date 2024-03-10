@@ -2,6 +2,7 @@ package service.order;
 
 import auth.user.User;
 import service.FileHandler;
+import service.food.Dish;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,28 @@ public class OrderDatabase {
     public static void add(Order order) {
         orders = getAll();
         orders.add(order);
-        //order.run();
+
+        Thread orderThread = new Thread(order);
+        orderThread.start();
+
+        FileHandler.save(orders, filePath);
+    }
+
+    public static void addDish(Order order, Dish dish) {
+        order.addDish(dish);
+
+        FileHandler.save(orders, filePath);
+    }
+
+    public static void deleteDish(Order order, Dish dish) {
+        order.deleteDish(dish);
+
+        FileHandler.save(orders, filePath);
+    }
+
+    public static void delete(Order order) {
+        orders = getAll();
+        orders.remove(order);
 
         FileHandler.save(orders, filePath);
     }

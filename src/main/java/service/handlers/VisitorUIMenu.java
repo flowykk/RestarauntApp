@@ -52,28 +52,29 @@ public class VisitorUIMenu implements UIMenuEntity {
                     break;
                 case "2":
                     OrderDatabase.display();
-
                     break;
                 case "3":
                     FoodMenu.display();
-
                     orderService.create();
                     break;
                 case "4":
-                    System.out.println(4);
+                    OrderDatabase.display();
+                    orderService.addDishToOrder();
                     break;
                 case "5":
-                    System.out.println(5);
+                    OrderDatabase.display();
+                    orderService.deleteDishFromOrder();
                     break;
                 case "6":
-                    System.out.println(6);
+                    OrderDatabase.display();
+                    orderService.cancel();
                     break;
                 case "7":
+                    OrderDatabase.display();
                     orderService.pay();
                     break;
                 case "8":
                     FoodMenu.display();
-
                     dishService.addFeedBack();
                     break;
                 case "0":

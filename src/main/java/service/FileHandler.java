@@ -27,8 +27,6 @@ public class FileHandler {
 
         try {
             objectMapper.writeValue(new File(filePath), data);
-
-            System.out.println("Данные успешно записаны в файл: " + filePath);
         } catch (IOException e) {
             System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
         }
@@ -41,8 +39,6 @@ public class FileHandler {
 
         try {
             objectMapper.writeValue(new File(filePath), restaurantStats);
-
-            System.out.println("Данные успешно записаны в файл: " + filePath);
         } catch (IOException e) {
             System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
         }
@@ -72,7 +68,6 @@ public class FileHandler {
             for (Admin admin : users) {
                 UserDatabase.addUser(admin);
             }
-
         } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
@@ -102,10 +97,8 @@ public class FileHandler {
             List<Dish> dishes = Arrays.asList(objectMapper.readValue(new File(filePath), Dish[].class));
 
             for (Dish dish : dishes) {
-                dish.display();
                 FoodMenu.add(dish);
             }
-
         } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }

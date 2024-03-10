@@ -30,6 +30,11 @@ public class AcceptedState extends OrderState {
     }
 
     @Override
+    public void getAccepted() {
+        order.changeState(new AcceptedState(order));
+    }
+
+    @Override
     public void getReady() { }
 
 

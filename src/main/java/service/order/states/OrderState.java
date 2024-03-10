@@ -36,5 +36,5 @@ abstract public class OrderState {
     abstract public String getReadyState();
     abstract public void getProcessed();
     abstract public void getReady();
-
+    abstract public void getAccepted();
 }

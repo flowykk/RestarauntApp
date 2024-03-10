@@ -26,5 +26,11 @@ public class InProcessState extends OrderState {
     }
 
     @Override
+    public void getAccepted() {
+        order.changeState(new AcceptedState(order));
+    }
+
+
+    @Override
     public void getProcessed() { }
 }

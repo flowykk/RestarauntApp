@@ -1,12 +1,14 @@
 package service.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import service.FileHandler;
 import service.RestaurantStats;
 import service.food.Dish;
 import service.modes.orderModes.paymentStatusMode;
 import service.order.states.AcceptedState;
 import service.order.states.OrderState;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,24 @@ public class Order implements Runnable {
 
     public int getId() { return id; }
 
+    public void addDish(Dish dish) {
+        dishes.add(dish);
+
+        computeTotalPrepareTime();
+        computeTotalPrice();
+
+        readyState.getAccepted();
+    }
+
+    public void deleteDish(Dish dish) {
+        dishes.remove(dish);
+
+        computeTotalPrepareTime();
+        computeTotalPrice();
+
+        readyState.getAccepted();
+    }
+
     public void computeTotalPrice() {
         totalPrice = 0;
         for (Dish item : dishes) {
@@ -65,34 +85,6 @@ public class Order implements Runnable {
             totalPrepareTime += item.getPrepareTime();
         }
     }
-
-//    public void display() {
-//        System.out.println("\n- ЗАКАЗ " + id);
-//        System.out.print("Статус готовности заказа: ");
-//        if (readyStatus == INPROCESS) {
-//            System.out.println("\uD83D\uDD34");
-//        } else if (readyStatus == READY) {
-//            System.out.println("\uD83D\uDFE1");
-//        } else {
-//            System.out.println("\uD83D\uDFE2");
-//        }
-//
-//        System.out.print("Статус оплаты заказа: ");
-//        if (paymentStatus == PAID) {
-//            System.out.println("\uD83D\uDD34");
-//        } else if (paymentStatus == NOTPAID) {
-//            System.out.println("\uD83D\uDFE2");
-//        }
-//
-//        System.out.println("Стоимость заказа: " + totalPrice + " $");
-//        System.out.println();
-//
-//        for (Dish dish : dishes) {
-//            System.out.println("Блюдо: " + dish.getName());
-//            System.out.println("Цена: " + dish.getPrice() + " $");
-//            System.out.println();
-//        }
-//    }
 
     public paymentStatusMode getPaymentStatus() {
         return paymentStatus;
@@ -120,24 +112,19 @@ public class Order implements Runnable {
         computeTotalPrepareTime();
     }
 
+    @Override
     public void run() {
-        System.out.println(totalPrepareTime * 1000L / 2);
-        readyState.display();
-        long millis = totalPrepareTime * 1000L / 2;
         try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        readyState.getProcessed();
+            long halfTime = 1000L * (totalPrepareTime / 3);
 
-        readyState.display();
-        try {
-            Thread.sleep(millis);
+            Thread.sleep(halfTime);
+            readyState.getProcessed();
+
+            Thread.sleep(halfTime);
+            readyState.getReady();
+
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        readyState.getReady();
-        readyState.display();
     }
 }

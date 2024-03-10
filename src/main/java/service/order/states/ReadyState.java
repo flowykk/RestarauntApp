@@ -23,5 +23,7 @@ public class ReadyState extends OrderState {
     public void getProcessed() { }
 
     @Override
+    public void getAccepted() { }
+    @Override
     public void getReady() { }
 }

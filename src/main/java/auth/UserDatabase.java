@@ -29,13 +29,16 @@ public class UserDatabase {
         if (visitors == null) visitors = new ArrayList<Visitor>();
 
         users.add(user);
-        if (user.getUserType().equals("ADMIN")) admins.add(new Admin(user.getUserName(), user.getPassword()));
-        else visitors.add(new Visitor(user.getUserName(), user.getPassword()));
+        if (user.getUserType().equals("ADMIN"))
+        {
+            admins.add(new Admin(user.getUserName(), user.getPassword()));
+            FileHandler.save(admins, "admins.json");
+        } else {
+            visitors.add(new Visitor(user.getUserName(), user.getPassword()));
+            FileHandler.save(visitors, "visitors.json");
+        }
 
         FileHandler.save(users, filePath);
-
-        FileHandler.save(admins, "admins.json");
-        FileHandler.save(visitors, "visitors.json");
     }
 
     public static User getUserByUsername(String username) {

@@ -32,13 +32,14 @@ public class AdminUIMenu implements UIMenuEntity {
         System.out.println("8. Посмотреть черный список ресторана");
         System.out.println("9. Добавить пользователя в чёрный список");
         System.out.println("10. Получить список зарегистрированных админов");
+        System.out.println("11. Посмотреть самые популярные блюда");
         System.out.println("0. Выход");
     }
 
     @Override
     public void handleMenuInput() {
         while (true) {
-            System.out.print("Введите число от 0 до 10: ");
+            System.out.print("Введите число от 0 до 11: ");
             String userInput = scanner.nextLine();
 
             switch (userInput) {
@@ -81,8 +82,10 @@ public class AdminUIMenu implements UIMenuEntity {
                     break;
                 case "10":
                     UserDatabase.displayAdmins();
+                case "11":
+                    FoodMenu.displayPopular();
                 default:
-                    System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 10.");
+                    System.out.println("Неверный ввод. Пожалуйста, выберите действие от 0 до 11.");
             }
 
             run();

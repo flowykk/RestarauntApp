@@ -1,6 +1,7 @@
 package service.food;
 
 import service.modes.UpdateMode;
+import service.order.OrderDatabase;
 import service.util.DishUtil;
 
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class DishService {
 
         System.out.println("Введите информацию о блюде для удаления:");
         String name = DishUtil.InputDishName();
-        if (name == null || name.equals("")) {
+        if (name == null || name.isEmpty()) {
             return;
         }
 
@@ -56,7 +57,7 @@ public class DishService {
     public void updatePrice() {
         System.out.println("Введите информацию о блюде для изменения:");
         String name = DishUtil.InputDishName();
-        if (name == null || name.equals("")) {
+        if (name == null || name.isEmpty()) {
             return;
         }
 
@@ -74,7 +75,7 @@ public class DishService {
     public void update(UpdateMode mode) {
         System.out.println("Введите информацию о блюде для изменения:");
         String name = DishUtil.InputDishName();
-        if (name == null || name.equals("")) {
+        if (name == null || name.isEmpty()) {
             return;
         }
 
@@ -94,8 +95,9 @@ public class DishService {
     }
 
     public void addFeedBack() {
+        System.out.println("Введите информацию о блюде для добавления отзыва:");
         String name = DishUtil.InputDishName();
-        if (name == null || name.equals("")) {
+        if (name == null || name.isEmpty()) {
             return;
         }
 
@@ -106,10 +108,42 @@ public class DishService {
         }
 
         System.out.println("Введите содержание отзыва:");
-        Scanner scanner = new Scanner(System.in);
-        String feedback = scanner.nextLine().trim().toLowerCase();
+        String text;
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            text = scanner.nextLine().trim().toLowerCase();
 
-        dish.addFeedBack(feedback);
-        System.out.println("✅ Отзыв успешно добавлен в базу!");
+            if (text.equals("0")) return;
+            if (text.length() < 10) {
+                System.out.println("Отзыв должен быть длинной более 10 символов!\nПовторите попытку или введите 0, чтобы отменить вернуться в меню!");
+                continue;
+            }
+            break;
+        }
+
+        int mark;
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            try {
+                System.out.print("Введите оценку блюда от 1 до 5: ");
+
+                mark = scanner.nextInt();
+
+                if (mark == -1) {
+                    return;
+                } else if (mark < 1 || mark > 5) {
+                    System.out.println("Цена блюда должна быть от 1 до 5.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Оценка введена некорректно." + "\nПовторите ввод ещё раз или введите -1 для выхода в меню.");
+                scanner.nextLine();
+            }
+        }
+
+        FeedBack feedBack = new FeedBack(mark, text);
+        dish.addFeedBack(feedBack);
+        System.out.println("✅ Отзыв успешно добавлен!");
     }
 }
