@@ -22,8 +22,10 @@ abstract public class OrderState {
         }
 
         System.out.println("Стоимость заказа: " + order.getTotalPrice() + " $");
+        System.out.println("Время приготовления заказа: " + order.getTotalPrepareTime() + " мин.");
         System.out.println();
 
+        System.out.println("Состав заказа:");
         for (Dish dish : order.getDishes()) {
             System.out.println("Блюдо: " + dish.getName());
             System.out.println("Цена: " + dish.getPrice() + " $");
@@ -34,5 +36,5 @@ abstract public class OrderState {
     abstract public String getReadyState();
     abstract public void getProcessed();
     abstract public void getReady();
-
+    abstract public void getAccepted();
 }

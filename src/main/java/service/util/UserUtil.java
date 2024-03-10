@@ -1,14 +1,55 @@
 package service.util;
 
+import auth.UserDatabase;
+import auth.user.User;
+import auth.user.Visitor;
+import service.RestaurantStats;
 import service.modes.InfoMode;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 import java.util.Scanner;
 
 
 public class UserUtil {
+    public static void handleAddingToBlackList() {
+        User visitor = handleVisitorInput();
+        if (visitor == null) {
+            System.out.println("Не удалось найти такого посетителя!");
+            return;
+        } else if (RestaurantStats.getBlackList().contains(visitor)) {
+            System.out.println("❌ Этот посетитель уже есть в черном списке!");
+            return;
+        }
+
+        RestaurantStats.addToBlackList((Visitor) visitor);
+        System.out.println("✅ Данный посетитель успешно добавлен в чёрный список ресторана!");
+    }
+
+    public static User handleVisitorInput() {
+        System.out.println("\nСписок зарегистрированных посетителей:");
+        UserDatabase.displayVisitors();
+        User user;
+
+        System.out.println("Введите данные о пользователе для добавления в черный список.");
+        String username = UserUtil.handleInfoInput(
+                "Введите идентификатор посетителя: ",
+                "Имя пользователя введено некорректно!\n" +
+                        "Имя пользователя должно состоять из не менее чем 6-ти латинских букв или цифр!",
+                InfoMode.USERNAME
+        );
+
+        user = UserDatabase.getUserByUsername(username);
+
+        if (user.getUserType() != null & !Objects.equals(user.getUserType(), "VISITOR")) {
+            return null;
+        }
+
+        return user;
+    }
+
     public static String handleInfoInput(String message, String errorMessage, InfoMode mode) {
         Scanner scanner = new Scanner(System.in);
         String data;
@@ -45,7 +86,6 @@ public class UserUtil {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));
 
-            // Преобразуем массив байт в строку шестнадцатеричного формата
             StringBuilder hexString = new StringBuilder();
             for (byte b : hashBytes) {
                 String hex = Integer.toHexString(0xff & b);
@@ -56,7 +96,6 @@ public class UserUtil {
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            // Обработка исключения NoSuchAlgorithmException
             e.printStackTrace();
             return null;
         }

@@ -12,17 +12,19 @@ public class Dish {
     private double price;
     private int count;
     private int prepareTime;
-    private List<String> feedBacks;
+    private List<FeedBack> feedBacks;
+    @JsonIgnore
+    private double averageFeedBackMark;
 
     public Dish() {
         name = "default";
         price = 0;
         prepareTime = 0;
-        feedBacks = new ArrayList<String>();
+        feedBacks = new ArrayList<FeedBack>();
         count = 1;
     }
 
-    public Dish(@JsonProperty("name") String name, @JsonProperty("price") double price, @JsonProperty("preparetime") int prepareTime, @JsonProperty("feedbacks") List<String> feedBacks, @JsonProperty("count") int count) {
+    public Dish(@JsonProperty("name") String name, @JsonProperty("price") double price, @JsonProperty("preparetime") int prepareTime, @JsonProperty("feedbacks") List<FeedBack> feedBacks, @JsonProperty("count") int count) {
         this.name = name;
         this.price = price;
         this.prepareTime = prepareTime;
@@ -34,7 +36,7 @@ public class Dish {
         this.name = name;
         this.price = price;
         this.prepareTime = prepareTime;
-        this.feedBacks = new ArrayList<String>();
+        this.feedBacks = new ArrayList<FeedBack>();
         count = 1;
     }
 
@@ -44,12 +46,22 @@ public class Dish {
 
     public int getCount() { return count; }
     public int getPrepareTime() { return prepareTime; }
-    public List<String> getFeedBacks() { return feedBacks; }
+    public List<FeedBack> getFeedBacks() { return feedBacks; }
+
+    public double getAverageFeedBackMark() {
+        averageFeedBackMark = 0;
+        for (FeedBack fb : feedBacks) {
+            averageFeedBackMark += fb.getMark();
+        }
+        averageFeedBackMark /= feedBacks.size();
+
+        return averageFeedBackMark;
+    }
 
     @JsonIgnore
     public boolean getAvailability() { return count > 0; }
 
-    public void addFeedBack(String feedBack) {
+    public void addFeedBack(FeedBack feedBack) {
         feedBacks.add(feedBack);
 
         FileHandler.save(FoodMenu.getAll(), "dishes.json");
@@ -66,6 +78,20 @@ public class Dish {
         System.out.println("Время приготовления: " + getPrepareTime() + " мин.");
         System.out.println("Количество: " + getCount());
         System.out.println("Доступность: " + (getAvailability() ? "\uD83D\uDFE2" : "\uD83D\uDD34"));
+
+        if (!feedBacks.isEmpty()) {
+            System.out.println("Отзывы клиентов: ");
+            for (FeedBack feedback : feedBacks) {
+                feedback.display();
+            }
+        }
+        System.out.println();
+    }
+
+    public void displayAdmin() {
+        System.out.println("- Блюдо: " + getName());
+        System.out.println("Цена: " + getPrice() + " $");
+        System.out.println("Средняя оценка: " + getAverageFeedBackMark());
         System.out.println();
     }
 }

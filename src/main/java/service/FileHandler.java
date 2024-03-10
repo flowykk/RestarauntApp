@@ -27,10 +27,34 @@ public class FileHandler {
 
         try {
             objectMapper.writeValue(new File(filePath), data);
-
-            System.out.println("Данные успешно записаны в файл: " + filePath);
         } catch (IOException e) {
             System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+        }
+    }
+
+    public static void saveStats(String path) {
+        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, path);
+        ObjectMapper objectMapper = new ObjectMapper();
+        RestaurantStateTemplate restaurantStats = new RestaurantStateTemplate();
+
+        try {
+            objectMapper.writeValue(new File(filePath), restaurantStats);
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+        }
+    }
+
+    public static void uploadStats() {
+        String filePath = MessageFormat.format("{0}/{1}", dataFolderPath, "stats.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            RestaurantStateTemplate stats = objectMapper.readValue(new File(filePath), RestaurantStateTemplate.class);
+
+            RestaurantStats.setBlackList(stats.getBlackList());
+            RestaurantStats.setTotalRevenue(stats.getTotalRevenue());
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
@@ -44,7 +68,6 @@ public class FileHandler {
             for (Admin admin : users) {
                 UserDatabase.addUser(admin);
             }
-
         } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
@@ -74,10 +97,8 @@ public class FileHandler {
             List<Dish> dishes = Arrays.asList(objectMapper.readValue(new File(filePath), Dish[].class));
 
             for (Dish dish : dishes) {
-                dish.display();
                 FoodMenu.add(dish);
             }
-
         } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }

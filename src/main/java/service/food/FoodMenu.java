@@ -32,6 +32,18 @@ public class FoodMenu {
         }
     }
 
+    public static void displayPopular() {
+        AverageComparator comparator = new AverageComparator();
+        var sorted = dishes;
+        sorted.sort(comparator);
+
+        System.out.println();
+        for (var dish : sorted.reversed()) {
+            dish.displayAdmin();
+        }
+
+    }
+
     public static Dish getDishByName(String name) {
         for (Dish dish : getAll()) {
             if (dish.getName().equals(name)) {
@@ -93,4 +105,6 @@ public class FoodMenu {
 
         FileHandler.save(dishes, filePath);
     }
+
+
 }
