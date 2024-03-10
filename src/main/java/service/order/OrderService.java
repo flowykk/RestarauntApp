@@ -50,10 +50,7 @@ public class OrderService {
         } else if (FoodMenu.getDishByName(name) == null) {
             System.out.println("❌ Блюда с таким названием не существует!");
             return;
-        } /*else if (order.getDishes().contains(FoodMenu.getDishByName(name))) {
-            System.out.println("❌ Блюда с таким названием нету в Заказе Id " + id + "!");
-            return;
-        }*/
+        }
 
         OrderDatabase.addDish(order, FoodMenu.getDishByName(name));
         System.out.println("✅ Ваш заказ успешно обновлён:");
@@ -76,6 +73,11 @@ public class OrderService {
             return;
         } else if (Objects.equals(order.getReadyStateString(), "INPROCESS")) {
             System.out.println("❌ Ваш Заказ Id " + id + " уже готовится, нельзя удалить из него блюда!");
+            return;
+        }
+
+        if (order.getDishes().size() <= 1) {
+            System.out.println("В заказе только одно блюдо!\nВместо удаления блюда, можно удалить заказ!");
             return;
         }
 

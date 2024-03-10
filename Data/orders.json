@@ -1,1 +1,1 @@
-[{"Id":1,"dishes":[{"name":"cezar","price":30.0,"count":0,"prepareTime":20,"feedBacks":[{"mark":5,"text":"so good cezar!"},{"mark":2,"text":"vary bad restaurant service!"}]}],"totalPrice":30.0,"totalPrepareTime":20,"paymentStatus":"NOTPAID","readyState":"ACCEPTED"}]
+[{"Id":1,"dishes":[{"name":"filet","price":100.0,"count":1,"prepareTime":100,"feedBacks":[{"mark":5,"text":"very tasty!"},{"mark":5,"text":"so good! i will order it later!"}]}],"totalPrice":100.0,"totalPrepareTime":100,"paymentStatus":"NOTPAID","readyState":"ACCEPTED"}]
